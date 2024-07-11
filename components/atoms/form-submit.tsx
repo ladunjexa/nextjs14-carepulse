@@ -4,7 +4,7 @@ import Image from "next/image";
 
 type Props = {
   isLoading: boolean;
-  className: string;
+  className?: string;
   children: React.ReactNode;
 };
 

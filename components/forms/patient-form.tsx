@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -10,6 +11,7 @@ import { UserFormValidation } from "@/lib/validation";
 import FormField from "../atoms/form-field";
 import FormSubmit from "../atoms/form-submit";
 import { useRouter } from "next/navigation";
+import { createUser } from "@/appwrite/actions/patient.action";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -40,15 +42,19 @@ const PatientForm = (props: Props) => {
     setIsLoading(true);
 
     try {
-      // const userData = {
-      //   name: values.name,
-      //   email: values.email,
-      //   phone: values.phone,
-      // };
-      // const user = await createUser(userData);
-      // if(user) router.push(`/patients/${user.id}/register`);
+      const userData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+      };
+
+      const user = await createUser(userData);
+
+      if (user) router.push(`/patients/${user.id}/register`);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
