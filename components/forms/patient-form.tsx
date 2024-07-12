@@ -50,7 +50,7 @@ const PatientForm = (props: Props) => {
 
       const user = await createUser(userData);
 
-      if (user) router.push(`/patients/${user.id}/register`);
+      if (user) router.push(`/patients/${user.$id}/register`);
     } catch (error) {
       console.error(error);
     } finally {

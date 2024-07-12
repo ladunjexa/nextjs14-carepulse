@@ -1,3 +1,4 @@
+export const endpoint: string = process.env.NEXT_PUBLIC_ENDPOINT || "http://localhost:3000";
 export const url: string = process.env.NEXT_PUBLIC_APPWRITE_URL || "https://cloud.appwrite.io/v1";
 
 export const projectId: string = assertValue(
