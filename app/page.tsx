@@ -1,10 +1,16 @@
 import Image from "next/image";
 import PatientForm from "@/components/forms/patient-form";
 import Link from "next/link";
+import { SearchParamProps } from "@/types";
+import AuthModal from "@/components/atoms/auth-modal";
 
-export default function Home() {
+export default function Home({ searchParams }: SearchParamProps) {
+  const isAdmin = searchParams.admin === "true";
+
   return (
     <div className="flex h-screen max-h-screen">
+      {isAdmin && <AuthModal />}
+
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[496px]">
           <Image
@@ -25,7 +31,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <Image
         src="/assets/images/onboarding-img.png"
         height={1000}
