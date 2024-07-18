@@ -2,13 +2,13 @@ import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 
-type Props = {
+type FormSubmitProps = {
   isLoading: boolean;
   className?: string;
   children: React.ReactNode;
 };
 
-const FormSubmit = ({ isLoading, className, children }: Props) => {
+const FormSubmit = ({ isLoading, className, children }: FormSubmitProps) => {
   return (
     <Button type="submit" disabled={isLoading} className={className ?? "shad-primary-btn w-full"}>
       {isLoading ? (

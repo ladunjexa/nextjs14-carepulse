@@ -18,7 +18,7 @@ import { getAppointmentSchema } from "@/lib/validation";
 import { Status } from "@/types";
 import { Appointment } from "@/appwrite/types";
 
-type Props = {
+type AppointmentFormProps = {
   userId: string;
   patientId: string;
   type: "create" | "cancel" | "schedule";
@@ -26,7 +26,13 @@ type Props = {
   setOpen?: (open: boolean) => void;
 };
 
-const AppointmentForm = ({ userId, patientId, type, appointment, setOpen }: Props) => {
+const AppointmentForm = ({
+  userId,
+  patientId,
+  type,
+  appointment,
+  setOpen,
+}: AppointmentFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

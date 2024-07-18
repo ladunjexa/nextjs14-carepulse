@@ -14,14 +14,14 @@ import clsx from "clsx";
 import AppointmentForm from "../forms/appointment-form";
 import { Appointment } from "@/appwrite/types";
 
-type Props = {
+type AppointmentModalProps = {
   type: "schedule" | "cancel";
   patientId: string;
   userId: string;
   appointment: Appointment;
 };
 
-const AppointmentModal = ({ type, patientId, userId, appointment }: Props) => {
+const AppointmentModal = ({ type, patientId, userId, appointment }: AppointmentModalProps) => {
   const [open, setOpen] = useState(false);
 
   return (

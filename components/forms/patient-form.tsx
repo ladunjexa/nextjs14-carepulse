@@ -23,9 +23,7 @@ export enum FormFieldType {
   SKELETON = "skeleton",
 }
 
-type Props = {};
-
-const PatientForm = (props: Props) => {
+const PatientForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

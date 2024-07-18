@@ -2,14 +2,14 @@ import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 
-type Props = {
+type StatCardProps = {
   type: "appointments" | "pending" | "cancelled";
   count: number;
   label: string;
   icon: string;
 };
 
-const StatCard = ({ type, count = 0, label, icon }: Props) => {
+const StatCard = ({ type, count = 0, label, icon }: StatCardProps) => {
   return (
     <div
       className={clsx("stat-card", {

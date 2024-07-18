@@ -4,7 +4,11 @@ import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 
-const StatusBadge = ({ status }: { status: Status }) => {
+type StatusBadgeProps = {
+  status: Status;
+};
+
+const StatusBadge = ({ status }: StatusBadgeProps) => {
   return (
     <div
       className={clsx("status-badge", {

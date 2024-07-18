@@ -21,7 +21,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SelectItem } from "@/components/ui/select";
 import FileUploader from "@/components/atoms/file-uploader";
 
-const RegisterForm = ({ user }: { user: User }) => {
+type RegisterFormProps = {
+  user: User;
+};
+
+const RegisterForm = ({ user }: RegisterFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

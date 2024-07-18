@@ -16,9 +16,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { decryptKey, encryptKey } from "@/lib/utils";
 
-type Props = {};
-
-const AuthModal = (props: Props) => {
+const AuthModal = () => {
   const router = useRouter();
   const path = usePathname();
   const [open, setOpen] = useState(true);
