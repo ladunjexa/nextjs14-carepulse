@@ -6,11 +6,11 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  SortingState,
   getSortedRowModel,
   useReactTable,
   ColumnFiltersState,
   getFilteredRowModel,
+  SortingState,
 } from "@tanstack/react-table";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -26,7 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { decryptKey } from "@/lib/utils";
+import { decryptKey, formatTableFilter } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,31 +36,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TableFilter } from "@/types";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-type InputFilter = "primaryPhysician" | "status" | "patient" | "schedule" | string;
-
-const getFilterName = (filter: InputFilter) => {
-  switch (filter) {
-    case "primaryPhysician":
-      return "Doctor";
-    case "status":
-      return "Status";
-    case "patient":
-      return "Patient";
-    case "schedule":
-      return "Appointment";
-  }
-};
-
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [inputFilter, setInputFilter] = React.useState<InputFilter>("primaryPhysician");
+  const [inputFilter, setInputFilter] = React.useState<TableFilter | string>("primaryPhysician");
 
   const encryptedKey =
     typeof window !== "undefined" ? window.localStorage.getItem("accessKey") : null;
@@ -92,14 +78,14 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <div className="data-table">
       <div className="m-4 flex items-center justify-center">
         <Input
-          placeholder={`Filter by ${getFilterName(inputFilter)}...`}
+          placeholder={`Filter by ${formatTableFilter(inputFilter)}...`}
           value={(table.getColumn(inputFilter)?.getFilterValue() as string) ?? ""}
           onChange={event => table.getColumn(inputFilter)?.setFilterValue(event.target.value)}
           className="text-14-medium rounded-lg border border-dark-500"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">{getFilterName(inputFilter)}</Button>
+            <Button variant="ghost">{formatTableFilter(inputFilter)}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="shad-dialog">
             <DropdownMenuLabel>Available Filters</DropdownMenuLabel>

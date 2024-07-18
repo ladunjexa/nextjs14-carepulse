@@ -8,6 +8,7 @@ export type SearchParamProps = {
 
 export type Gender = "Male" | "Female" | "Other";
 export type Status = "pending" | "scheduled" | "cancelled";
+export type TableFilter = "primaryPhysician" | "status" | "patient" | "schedule";
 
 export interface CreateUserParams {
   name: string;

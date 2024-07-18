@@ -1,3 +1,4 @@
+import { TableFilter } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -55,6 +56,16 @@ export const formatDateTime = (dateString: Date | string) => {
     timeOnly: formattedTime,
   };
 };
+
+export const TableFilterNames: Record<TableFilter, string> = {
+  primaryPhysician: "Doctor",
+  status: "Status",
+  patient: "Patient",
+  schedule: "Appointment",
+};
+
+export const formatTableFilter = (filter: TableFilter | string) =>
+  TableFilterNames[filter as keyof typeof TableFilterNames] || "unknown";
 
 export function encryptKey(passkey: string) {
   return btoa(passkey);
