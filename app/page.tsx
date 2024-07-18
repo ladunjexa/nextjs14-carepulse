@@ -2,7 +2,7 @@ import Image from "next/image";
 import PatientForm from "@/components/forms/patient-form";
 import Link from "next/link";
 import { SearchParamProps } from "@/types";
-import AuthModal from "@/components/atoms/auth-modal";
+import AuthModal from "@/components/modals/auth-modal";
 
 export default function Home({ searchParams }: SearchParamProps) {
   const isAdmin = searchParams.admin === "true";

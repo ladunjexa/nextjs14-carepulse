@@ -4,7 +4,7 @@ import RegisterForm from "@/components/forms/register-form";
 import { getUser } from "@/appwrite/actions/patient.action";
 import { SearchParamProps } from "@/types";
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
+export default async function Register({ params: { userId } }: SearchParamProps) {
   const user = await getUser(userId);
 
   return (
@@ -34,6 +34,4 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
       />
     </div>
   );
-};
-
-export default Register;
+}
