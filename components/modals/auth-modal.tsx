@@ -36,6 +36,7 @@ const AuthModal = (props: Props) => {
         router.push("/admin");
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encryptedKey]);
 
   const closeModal = () => {
