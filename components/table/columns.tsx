@@ -5,10 +5,12 @@ import Image from "next/image";
 
 import { Doctors } from "@/constants";
 import { formatDateTime } from "@/lib/utils";
+import { ArrowUpDown } from "lucide-react";
 
 import { Appointment } from "@/appwrite/types";
 import StatusBadge from "../atoms/status-badge";
 import AppointmentModal from "../modals/appointment-modal";
+import { Button } from "../ui/button";
 
 export const columns: ColumnDef<Appointment>[] = [
   {
@@ -17,12 +19,32 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     accessorKey: "patient",
-    header: "Patient",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Patient
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => <p className="text-14-medium ">{row.original.patient.name}</p>,
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
       <div className="min-w-[115px]">
         <StatusBadge status={row.original.status} />
@@ -31,7 +53,17 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     accessorKey: "schedule",
-    header: "Schedule",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Appointment
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
       <p className="text-14-regular min-w-[100px]">
         {formatDateTime(row.original.schedule).dateTime}
@@ -40,7 +72,17 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     accessorKey: "primaryPhysician",
-    header: "Doctor",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Doctor
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const doctor = Doctors.find(doctor => doctor.name === row.original.primaryPhysician);
 

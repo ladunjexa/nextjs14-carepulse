@@ -6,6 +6,8 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  SortingState,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import Image from "next/image";
@@ -29,6 +31,8 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+
   const encryptedKey =
     typeof window !== "undefined" ? window.localStorage.getItem("accessKey") : null;
 
@@ -45,6 +49,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   return (
