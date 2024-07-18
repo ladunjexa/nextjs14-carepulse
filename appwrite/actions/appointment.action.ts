@@ -2,9 +2,9 @@
 
 import { Query } from "node-appwrite";
 
-import { ID, database } from "@/appwrite/client";
+import { ID, database, messaging } from "@/appwrite/client";
 import type { CreateAppointmentParams, UpdateAppointmentParams } from "@/types";
-import { parseStringify } from "@/lib/utils";
+import { formatDateTime, parseStringify } from "@/lib/utils";
 
 import { databaseId, appointmentCollectionId } from "../env";
 import { Appointment } from "../types";
@@ -76,7 +76,7 @@ export async function getRecentAppointments() {
 }
 
 export async function updateAppointment(params: UpdateAppointmentParams) {
-  const { appointmentId, appointment } = params;
+  const { userId, appointmentId, appointment, type } = params;
 
   try {
     const updatedAppointment = await database.updateDocument(
@@ -90,11 +90,30 @@ export async function updateAppointment(params: UpdateAppointmentParams) {
       throw new Error("Failed to update appointment");
     }
 
-    // SMS notification
+    const smsMessage = `
+    Hi, It's CarePulse!
+    ${
+      type === "schedule"
+        ? `Your appointment has been scheduled for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician!}.`
+        : `We regret to inform you that your appointment has been cancelled. Reason: ${appointment.cancellationReason}`
+    }
+    `;
+
+    await sendSMSNotification(userId, smsMessage);
 
     revalidatePath("/admin");
 
     return parseStringify(updatedAppointment);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function sendSMSNotification(userId: string, content: string) {
+  try {
+    const message = await messaging.createSms(ID.unique(), content, [], [userId]);
+
+    return parseStringify(message);
   } catch (error) {
     console.error(error);
   }
